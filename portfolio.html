@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #5a67d8;
+            --bg: #f5f6fa;
+            --dark: #2d3748;
+            --yellow: #ffc107;
+            --temp: 0.9;
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+        header {
+            position: fixed;
+            width: 85vw;
+            background: var(--accent);
+            color: #fff;
+            top: 0; left: 0; z-index: 100;
+            padding: 20px 10vw;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 8px rgba(80,80,120,.07);
+            animation: fadeDown 1s;
+        }
+        @keyframes fadeDown {
+            from { opacity:0; transform:translateY(-40px);}
+            to{ opacity:1; transform:translateY(0);}
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            display: flex;
+            gap: 2rem;
+        }
+        nav li a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        nav li a:hover::after { width: 100%; }
+        .hero {
+            height: 100vh;
+            background: linear-gradient(120deg, var(--accent) 40%, var(--yellow) 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 120px;
+            animation: fadeIn 1.2s 0.3s both;
+        }
+        @keyframes fadeIn {
+            from { opacity:0; transform: scale(0.97);}
+            to { opacity:1; transform: scale(1);}
+        }
+        .hero h1 {
+            margin-bottom: 0.2em;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            animation: textPop 1.2s 0.6s backwards;
+        }
+        .hero p {
+            font-size: 1.3rem;
+        }
+        @keyframes textPop {
+            from { transform:translateY(40px); opacity:0;}
+            to { transform: translateY(0); opacity:1;}
+        }
+        .btn {
+            margin-top: 35px;
+            background: var(--yellow);
+            color: var(--dark);
+            padding: 12px 32px; font-weight: 600;
+            border-radius: 30px; border: none;
+            font-size: 1.1em;
+            box-shadow: 0 4px 20px rgba(0,0,0,.06);
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1);}
+            to { transform: scale(1.07);}
+        }
+        section {
+            padding: 80px 8vw 40px 8vw;
+            max-width: 1200px; margin: auto;
+            opacity: 0; transform: translateY(40px); transition: .8s all;
+        }
+        section.visible {
+            opacity: 1; transform: translateY(0);
+        }
+        h2 { text-align: center; color: var(--accent);}
+        .about-img {
+            float: left; width: 180px; border-radius: 13px; margin:10px 30px 30px 0;
+            box-shadow: 0 6px 28px rgba(90,103,216,.11);
+            animation: fadeIn 1.5s both;
+        }
+        .about-content {
+            overflow: auto;
+            font-size: 1.15rem;
+            color: #444;
+        }
+        .card-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2em;
+        }
+        .card {
+            background: #fff;
+            padding: 1.7em 1.3em;
+            border-radius: 13px;
+            box-shadow: 0 6px 28px rgba(90,103,216,.09);
+            flex: 1 0 260px;
+            max-width: 340px;
+            min-width: 260px;
+            transition: transform 0.4s;
+            animation: fadeIn 1.6s both;
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.04) rotate(-1.5deg);
+            box-shadow: 0 18px 46px rgba(90,103,216,.16);
+        }
+        .skills-list {
+            display: flex; flex-wrap: wrap; gap: 1.3em; justify-content: center;
+        }
+        .skill {
+            background: var(--accent);
+            color: #fff;
+            border-radius: 30px; padding: .8em 2em; font-weight: 600;
+            font-size: 1em; box-shadow: 0 4px 20px rgba(90,103,216,.2);
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(48px) scale(0.95);
+            transition: 0.6s all;
+        }
+        .skill.visible {
+            opacity: 1; transform: translateY(0) scale(1);
+        }
+        /* Contact Section */
+        .contact-form {
+            max-width: 420px;
+            margin: 2em auto 0 auto;
+            display: flex; flex-direction: column; gap: 1.2em;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 1em; border: 2px solid var(--accent); border-radius: 8px;
+            font-size: 1em; font-family: inherit;
+            transition: border-color .3s;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus { border-color: var(--yellow);}
+        .contact-btn {
+            background: var(--accent); color: #fff; border:none; font-weight:600;
+            padding: .85em 2.2em; border-radius: 30px; cursor:pointer; font-size:1.14em;
+            transition: background 0.2s;
+        }
+        .contact-btn:hover { background: var(--yellow); color: var(--dark);}
+        footer {
+            padding: 2em 0 1em 0;
+            color: #888;
+            text-align: center;
+            font-size: 1em;
+        }
+        @media (max-width: 800px) {
+            .card-row { flex-direction: column; }
+            section { padding: 60px 5vw 30px 5vw;}
+            .about-img { float:none; display:block; margin:0 auto 30px auto; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" style="font-size:1.43em;font-weight:bold;letter-spacing:2px;">AM</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="hero" id="home" style="flex-direction:row;align-items:center;justify-content:center;gap:48px;">
+    <!--<img src="https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZGF0YSUyMGFuYWx5c2lzfGVufDB8fDB8fHww" alt="Avinash Mishra" style="border-radius:14px;box-shadow:0 6px 28px rgba(90,103,216,.17);width:180px;min-width:120px;">-->
+    <div>
+        <h1>👋 Hi, I'm <span style="color:var(--yellow);">Avinash Mishra</span></h1>
+        <p>I'm a data analyst and Java developer passionate about data-driven solutions, analytics, and robust backend development.</p>
+        <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's Connect</button>
+    </div>
+</div>
+
+    <section id="about">
+    <h2>About Me</h2>
+    <img src="https://wallpapers.com/images/hd/cool-profile-picture-qej7j2ekuor93ss7.jpg" alt="Profile" class="about-img" style="border-radius:50%;box-shadow:5px 5px 5px grey;">
+    <div class="about-content">
+        <p>
+            Hello! I'm Avinash Mishra, a data analyst and Java developer specializing in extracting insights from data, building analytical models, and developing scalable backend systems. I enjoy working with large datasets, creating visualizations, and building efficient applications. When I'm not working, I love learning new technologies and exploring innovative solutions in both data science and software engineering.
+        </p>
+    </div>
+</section>
+    <section id="projects">
+    <h2>Projects</h2>
+    <div class="card-row">
+        <div class="card">
+            <h3>Predicting Plant Growth</h3>
+            <p>Developed a machine learning model to predict plant growth based on environmental data, helping optimize agricultural yield using Python and data science libraries.</p>
+            <a href="#" style="color:var(--accent);font-weight:bold;">View Demo →</a>
+        </div>
+        <div class="card">
+            <h3>Rainfall Prediction</h3>
+            <p>Built a predictive analytics tool for rainfall forecasting using historical weather data, regression analysis, and data visualization techniques.</p>
+            <a href="#" style="color:var(--accent);font-weight:bold;">View Demo →</a>
+        </div>
+        <div class="card">
+            <h3>Review Wordcloud</h3>
+            <p>Created interactive wordcloud visualizations from customer reviews to highlight key sentiments and insights using Python and Power BI/Tableau.</p>
+            <a href="#" style="color:var(--accent);font-weight:bold;">View Demo →</a>
+        </div>
+    </div>
+</section>
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-list" id="skillsList">
+            <span class="skill">Java</span>
+            <span class="skill">Python</span>
+            <span class="skill">SQL</span>
+            <span class="skill">Power BI</span>
+            <span class="skill">Tableau</span>
+            <span class="skill">React</span>
+            <span class="skill">Responsive Design</span>
+            <span class="skill">Gen AI</span>
+        </div>
+    </section>
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form class="contact-form" onsubmit="event.preventDefault();alert('Thank you! I will get back to you soon.');this.reset();">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button class="contact-btn" type="submit">Send Message</button>
+        </form>
+    </section>
+    <footer>
+    &copy; 2025 Avinash Mishra. All Rights Reserved.
+</footer>
+    <script>
+        // Animate section on scroll
+        function onScrollAnim() {
+            document.querySelectorAll('section').forEach(sec=>{
+                let rect = sec.getBoundingClientRect();
+                if(rect.top < window.innerHeight-100){ sec.classList.add('visible'); }
+            });
+            // Animate skills
+            document.querySelectorAll('.skill').forEach((el,i)=>{
+                let sec = document.getElementById('skills');
+                if(sec.classList.contains('visible')){
+                    setTimeout(()=>{el.classList.add('visible');},i*90);
+                }
+            });
+        }
+        document.addEventListener("scroll", onScrollAnim);
+        window.onload = onScrollAnim;
+    </script>
+</body>
+</html>
